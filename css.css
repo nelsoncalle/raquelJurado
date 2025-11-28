@@ -1536,6 +1536,10 @@ a {
     scroll-margin-top: 20px;
   }
 
+        p.servicio-descripcion {
+            padding-left: 10px;
+        }
+
 
 
 
