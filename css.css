@@ -1,0 +1,1542 @@
+/* ======================================================= */
+/* ESTILOS GLOBALES / BASE */
+/* ======================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+
+
+
+body {
+  margin: 0;
+  font-family: 'League Spartan', sans-serif;
+  background-color: #fff;
+  color: #000;
+  padding-top: 0;
+}
+
+body.fixed-header-padding {
+    padding-top: 90px; /* 70px (header) + 20px (nav) */
+}
+
+h1 {
+  font-family: 'League Spartan', serif;
+  font-weight: 700; /* Asumiendo que has importado el peso 700 para Playfair Display */
+  color: var(--primary-text-color); /* Usar tu variable de color para coherencia */
+}
+
+/* Aplicar Lora a los h2 (o Playfair si quieres más énfasis) */
+h2 {
+  font-family: 'League Spartan', serif; /* Puedes usar Lora para subtítulos más ligeros */
+  font-weight: 400; /* Peso normal para Lora */
+  color: var(--secondary-text-color); /* Usar tu variable de color */
+}
+
+/* Aplicar Lora a los párrafos */
+p {
+  font-family: 'League Spartan', serif;
+  font-weight: 400; /* Peso normal para Lora */
+  line-height: 1.6; /* Mejora la legibilidad de los párrafos */
+  color: var(--primary-text-color);
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit; /* Para que los enlaces hereden el color del padre si no se especifica */
+}
+
+/* Variables CSS para mantener los estilos consistentes y fáciles de cambiar */
+:root {
+    --primary-text-color: #333;
+    --secondary-text-color: #666;
+    --background-color: #fff;
+    --border-color: #eee;
+    --header-height: 70px; /* Un poco más compacto */
+    --padding-sides: 15px;
+}
+
+
+/* ======================================================= */
+/* ESTILOS PARA ESCRITORIO (POR DEFECTO) */
+/* ======================================================= */
+
+/* --- Header de Escritorio --- */
+.headerweb {
+  display: flex; /* Visible por defecto */
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #000;
+  padding: 10px var(--padding-sides);
+  position: fixed; /* Mantiene el header fijo en la ventana */
+  top: 0;          /* Lo posiciona en la parte superior */
+  left: 0;         /* Lo alinea a la izquierda */
+  width: 100%;     /* Ocupa todo el ancho de la pantalla */
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.headerweb .logo {
+  color: #fff;
+  font-size: 24px; /* Tamaño de fuente para el logo de escritorio */
+}
+
+/* --- Navegación de Escritorio --- */
+.navweb {
+  display: flex; /* Visible por defecto */
+  justify-content: center;
+  background-color: var(--background-color);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color); /* Borde sutil */
+   /* --- NUEVOS ESTILOS PARA LA NAV WEB, DEBE ESTAR DEBAJO DEL HEADER FIJO --- */
+  position: fixed; /* También fija la navegación */
+  top: 70px; /* Ajusta este valor: 50px (altura del headerweb) + 10px (padding top) + 10px (padding bottom) = 70px */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.navweb ul {
+  display: flex;
+  gap: 30px;
+}
+
+.navweb a {
+  font-family: 'League Spartan', sans-serif;
+  color: var(--primary-text-color);
+  font-weight: bold;
+  padding: 5px 0; /* Espacio alrededor del texto del enlace */
+  transition: color 0.3s ease;
+  text-transform: uppercase; /* Opcional: para que se vea más como navegación */
+  letter-spacing: 0.8px;
+}
+
+.navweb a:hover {
+  color: #A9A9A9; /* Gris oscuro al pasar el mouse */
+}
+
+/* --- Elementos Móviles (Ocultos por defecto en Escritorio) --- */
+.headermovil,
+.navmovil {
+  display: none; /* Ambos ocultos en escritorio */
+}
+
+/* --- Menú Móvil (Preparación para la animación, pero el contenedor está oculto por display:none) --- */
+.navmovil {
+  position: fixed;
+  top: var(--header-height); /* Se ajustará a la altura del headermovil cuando esté visible */
+  left: 0;
+  width: 100%;
+  background-color: #000;
+  transform: translateY(-100%); /* Oculto arriba, fuera de la vista */
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s step-end; 
+  z-index: 999; /* Un poco menos que el header para que el header esté encima */
+  max-height: calc(100vh - var(--header-height)); /* Ocupa el resto de la altura de la ventana */
+  overflow-y: auto; /* Para desplazar el contenido si hay muchos enlaces */
+  opacity: 0;
+  visibility: hidden;
+}
+
+.navmovil ul {
+  padding-top: 0; /* Asegurar que no haya padding superior */
+}
+
+.navmovil a {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 500;
+  display: block;
+  padding: 15px 20px;
+  color: #fff;
+  border-bottom: 1px solid #444;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase; /* Opcional: para que se vea más como navegación */
+  letter-spacing: 0.8px; 
+}
+
+.navmovil a:hover {
+  background-color: #333;
+}
+
+/* Clase para mostrar el menú móvil */
+.navmovil.active {
+  transform: translateY(0); /* Desliza hacia abajo */
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.5s ease-in-out, opacity 0.4s ease-in-out, visibility 0s step-start;
+}
+
+
+.galeria {
+  text-align: center;
+  padding: 25px 40px 40px 40px;
+  /*padding: 40px var(--padding-sides);*/
+  background-color: #f8f8f8;
+}
+
+
+/* Sección Quién Soy - Estilos Generales (Colores Blanco, Gris, Negro) */
+.quien-soy {
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 60px 20px;
+  text-align: center;
+  max-width: 1200px;
+  margin: 40px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada en gris oscuro */
+  border: 1px solid #e0e0e0; /* Borde sutil en gris claro */
+}
+
+.quien-soy-contenido {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quien-soy-titulo {
+  font-family: 'League Spartan', serif; /* O una fuente elegante que uses */
+  font-size: 2.8em;
+  color: #222222; /* Negro casi puro para el título */
+  margin-bottom: 25px;
+  position: relative;
+  display: inline-block;
+}
+
+.quien-soy-titulo::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 3px;
+  background-color: #888888; /* Gris medio para el subrayado */
+  border-radius: 5px;
+}
+
+.quien-soy-descripcion {
+  font-family: 'League Spartan', sans-serif; /* O una fuente legible que uses */
+  font-size: 1.15em;
+  line-height: 1.7;
+  color: #555555; /* Gris oscuro para la descripción */
+  margin-bottom: 40px;
+  padding: 0 15px;
+}
+
+.btn-conoce-mas {
+  display: inline-block;
+  background-color: #444444; /* Gris oscuro para el botón */
+  color: white; /* Texto blanco en el botón */
+  padding: 14px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.05em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más definida */
+}
+
+.btn-conoce-mas:hover {
+  background-color: #222222; /* Negro para el hover del botón */
+  transform: translateY(-2px);
+}
+
+
+
+/* Estilos específicos para la página de Contacto */
+
+.main-content {
+    padding-top: 90px; /* Espacio para el header fijo y la nav */
+    padding-bottom: 50px;
+    background-color: #fcfcfc; /* Un blanco muy suave */
+}
+
+.contact-section {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.contact-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.contact-title {
+    font-family: 'League Spartan', serif;
+    font-size: 3em;
+    color: #333;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.contact-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #A9A9A9; /* Gris medio */
+    border-radius: 5px;
+}
+
+.contact-description {
+    font-family: 'League Spartan', serif;
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.7;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding: 0 10px;
+}
+
+/* Estilos del formulario */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Lora', serif;
+    font-size: 1em;
+    color: #333;
+    background-color: #fcfcfc;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box; /* Importante para que el padding no desborde el ancho */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #A9A9A9; /* Color gris al enfocar */
+    box-shadow: 0 0 0 3px rgba(169, 169, 169, 0.2); /* Sombra sutil */
+    outline: none; /* Eliminar el contorno por defecto del navegador */
+}
+
+.form-group textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 120px;
+}
+
+.submit-button {
+    background-color: #444444; /* Gris oscuro para el botón */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: center; /* Centra el botón si es flex-direction column */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: fit-content; /* Se ajusta al contenido */
+}
+
+.submit-button:hover {
+    background-color: #222222; /* Negro para el hover */
+    transform: translateY(-2px);
+}
+
+/* Información de contacto adicional */
+.contact-info {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+    width: 100%;
+}
+
+.contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-family: 'Lora', serif;
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.contact-info a {
+    color: #444;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #000;
+}
+
+.social-links {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-links a img {
+    width: 35px;
+    height: 35px;
+    transition: transform 0.3s ease;
+}
+
+.social-links a img:hover {
+    transform: scale(1.15);
+}
+
+
+/* ======================================================= */
+/* ESTILOS DEL CARRUSEL (MODIFICADOS) */
+/* ======================================================= */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Reducimos el ancho máximo para una vista más centrada */
+    margin: 30px auto;
+    overflow: hidden; /* Esto es esencial para ocultar las imágenes que no están en el view */
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    
+    /* Nueva altura fija para el contenedor del carrusel */
+    height: 400px; /* Altura fija para el contenedor en web, ajusta según necesidad */
+    display: flex; /* Para centrar el contenido (el carousel-slide) */
+    align-items: center;
+    justify-content: flex-start; /* Alineamos a la izquierda para el desplazamiento */
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    height: 100%; /* El slide ocupa el 100% de la altura del contenedor */
+    /* Eliminamos width: 100% aquí, las imágenes individuales definirán el ancho total */
+}
+
+.carousel-slide img {
+    /* La clave: Cada imagen ahora tiene el ancho completo del CONTEENEDOR DEL CARRUSEL */
+    width: 100%; 
+    max-width: 100%; /* Asegura que no desborde su propio 'slot' */
+    
+    /* La altura se ajusta a la del contenedor del carrusel */
+    height: 100%; 
+    max-height: 100%; /* Asegura que no desborde su propio 'slot' */
+    
+    /* Usamos 'contain' para ver la imagen completa sin recortar, centrada */
+    object-fit: contain; /* Muestra la imagen completa, dejando espacios si la proporción no coincide */
+    object-position: center;
+    
+    flex-shrink: 0; /* MUY IMPORTANTE: Evita que las imágenes se encojan */
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: auto; /* Centra la imagen dentro de su "slot" */
+}
+
+/* Botones de Navegación (no se necesitan cambios sustanciales aquí) */
+.prev-button, .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+.prev-button:hover, .next-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.05);
+    opacity: 1;
+}
+
+.prev-button {
+    left: 15px;
+}
+
+.next-button {
+    right: 15px;
+}
+
+/* Puntos de Navegación (no se necesitan cambios sustanciales aquí) */
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    background-color: #cccccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.dot.active {
+    background-color: #555555;
+    border-color: #333333;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background-color: #999999;
+}
+
+    .footer-column {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+    }
+
+.social-icons-footer {
+    display: flex; /* Para que los iconos se coloquen uno al lado del otro */
+    gap: 15px; /* Espacio entre los iconos */
+    margin-top: 20px; /* Separación de los párrafos de contacto */
+    justify-content: center; /* Centra los iconos si la columna es ancha */
+    /* En móvil, las columnas del footer se centran, así que 'center' aquí es buena opción */
+    
+}
+
+.social-icons-footer a img {
+    width: 30px; /* Tamaño del icono */
+    height: 30px;
+    filter: invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(150%) contrast(80%); /* Color gris claro */
+    transition: filter 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+.social-icons-footer a img:hover {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%); /* Blanco puro al pasar el mouse */
+    transform: scale(1.1); /* Ligero agrandamiento al pasar el mouse */
+}
+
+
+
+
+
+
+
+
+
+    .servicios {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .servicios-titulo {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .servicios-titulo:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            bottom: -10px;
+            left: 20%;
+        }
+        
+        .servicios-descripcion {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .servicio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 400px;
+        }
+        
+        .servicio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .servicio-imagen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .servicio-item:hover .servicio-imagen {
+            transform: scale(1.05);
+        }
+        
+        .servicio-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+        
+        .servicio-nombre {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        
+        .servicio-descripcion {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+        }
+        
+        .servicio-item:hover .servicio-descripcion {
+            max-height: 100px;
+            opacity: 1;
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+        .servicio-detalles {
+  background: #ffffff;
+  border-radius: 12px;
+  margin-top: 20px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.servicio-detalles:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.detalles-contenido h4 {
+  font-family: 'League Spartan', serif;
+  color: #333;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.descripcion-completa {
+  font-family: 'League Spartan', serif;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.95em;
+}
+
+.precio-seccion {
+  background: linear-gradient(135deg, #f8f8f8, #e8e8e8);
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 20px 0;
+  border-left: 4px solid #333;
+}
+
+.precio-seccion strong {
+  font-family: 'League Spartan', serif;
+  color: #333;
+  font-size: 1.2em;
+}
+
+.proceso-servicio,
+.recargos-domicilio {
+  margin: 20px 0;
+}
+
+.proceso-servicio h5,
+.recargos-domicilio h5 {
+  font-family: 'League Spartan', serif;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.proceso-servicio ol,
+.proceso-servicio ul,
+.recargos-domicilio ul {
+  padding-left: 20px;
+  font-family: 'League Spartan', serif;
+  color: #555;
+}
+
+.proceso-servicio li,
+.recargos-domicilio li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  font-size: 0.9em;
+}
+
+.recargos-domicilio strong {
+  color: #333;
+  font-weight: 600;
+}
+
+
+.servicio-detalles {
+  display: none;
+  width: 100%;
+  animation: fadeInUp 0.5s ease;
+}
+
+/* Mostrar solo el activo */
+.servicio-detalles.active {
+  display: block;
+}
+
+/* Animación para mostrar los detalles */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Indicador visual para servicio activo */
+.servicio-item.active {
+  position: relative;
+}
+
+.servicio-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #333, transparent);
+  border-radius: 2px;
+}
+
+/* Mejoras para hover y clic */
+.servicio-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.servicio-item:hover {
+  transform: translateY(-5px);
+}
+
+.servicio-nombre {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.servicio-item.active .servicio-nombre {
+  color: #f5eef1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Adaptación para móviles */
+@media (max-width: 768px) {
+  .quien-soy {
+    padding: 40px 15px;
+    margin: 20px auto;
+  }
+
+  .quien-soy-titulo {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .quien-soy-titulo::after {
+    bottom: -8px;
+    width: 50px;
+  }
+
+  .quien-soy-descripcion {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding: 0 5px;
+  }
+
+  .btn-conoce-mas {
+    padding: 12px 25px;
+    font-size: 1em;
+  }
+}
+
+.contenedor-fotos {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.foto-elegante {
+  width: 300px;
+  max-width: 100%; /* Asegura que no se desborde en pantallas pequeñas */
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.foto-elegante:hover {
+  transform: scale(1.03);
+}
+
+
+/* --- Footer --- */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #000;
+  color: #fff; /* El color base del texto del footer es blanco */
+  padding: 40px var(--padding-sides);
+  margin-top: 50px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+  margin: 10px;
+}
+
+
+
+ .footer {
+    
+    align-items: center;
+    text-align: center;
+    padding: 20px var(--padding-sides);
+    letter-spacing: 1px;
+  }
+
+  .footer-column {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+
+.footer-column h3 {
+  /* Aquí aplicamos Bebas Neue a los títulos de columna del footer */
+  font-family: 'League Spartan', sans-serif;
+  color: #fff; /* Asegura que el título sea blanco */
+  margin-bottom: 15px;
+  font-size: 1.5em; /* Un poco más grande para que destaque */
+  letter-spacing: 1px; /* Para darle un poco de aire */
+  text-transform: uppercase; /* Queda muy bien con Bebas Neue */
+}
+
+.footer-column p,
+.footer-column a {
+  font-family: 'League Spartan', serif; /* Mantendría Lora para los textos y enlaces del footer para legibilidad */
+  color: #A9A9A9;
+  line-height: 1.8;
+}
+
+.footer-column a:hover {
+  color: #fff;
+}
+
+.footer-note {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+  color: #A9A9A9;
+  font-size: 0.9em;
+  font-family: 'League Spartan', serif; /* Mantener Lora para la nota del footer */
+}
+
+/* ... el resto de tu CSS ... */
+
+
+/* --- Botón flotante de WhatsApp --- */
+.whatsapp-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #000; /* Fondo negro */
+  border: 1px solid #333; /* Borde gris oscuro para definir mejor */
+  border-radius: 50%;
+  width: 55px; /* Ligeramente más grande para que el SVG tenga espacio */
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 2em; /* Ya no es necesario si usamos una imagen SVG */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Sombra más fuerte y oscura */
+  cursor: pointer;
+  z-index: 1000;
+
+  /* Animación de pulsación más lenta */
+  animation: pulse-subtle 3s infinite ease-in-out; /* Nombre de la animación, duración, y que se repita infinitamente */
+}
+
+/* Estilos para la imagen SVG dentro del botón */
+.whatsapp-icon .whatsapp-img {
+  width: 30px; /* Tamaño del icono SVG */
+  height: 30px;
+  filter: invert(100%); /* Invierte los colores del SVG a blanco */
+  display: block; /* Asegura que la imagen se comporte correctamente */
+}
+
+/* Efecto al pasar el ratón */
+.whatsapp-icon:hover {
+  transform: scale(1.08); /* Un ligero escalado al pasar el ratón */
+}
+
+/* Definición de la animación de pulsación más sutil y lenta */
+@keyframes pulse-subtle {
+  0% {
+    transform: scale(1); /* Tamaño normal */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03); /* Solo un poco más grande */
+    box-shadow: 0 0 0 12px rgba(128, 128, 128, 0.15); /* Halo gris muy sutil y transparente */
+    opacity: 0.95; /* Ligeramente menos opaco */
+  }
+  100% {
+    transform: scale(1); /* Vuelve al tamaño normal */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    opacity: 1;
+  }
+}
+
+.footer-note a {
+  color: #fff; /* Color inicial (puedes ajustarlo) */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-note p{
+  color: #A9A9A9;
+}
+
+.footer-note a:hover {
+  color: #888; /* Gris elegante al pasar el mouse */
+}
+
+
+/* ======================================================= */
+/* ESTILOS PARA MÓVILES (MEDIA QUERY) */
+/* ======================================================= */
+@media screen and (max-width: 768px) {
+
+  /* --- Elementos de Escritorio (Ocultos en Móvil) --- */
+  body.fixed-header-padding {
+      padding-top: var(--header-height); /* 70px, usando tu variable */
+      padding-top: 0px;
+  }
+
+  
+
+  .headerweb,
+  .navweb {
+    display: none;
+  }
+
+  /* --- Header Móvil (Visible en Móvil) --- */
+  .headermovil {
+    display: flex; /* Ahora usamos flex para el headermovil principal */
+    justify-content: space-between; /* Distribuye el menú y el texto */
+    align-items: center;
+    position: sticky; /* O fixed si quieres que siempre esté visible al hacer scroll */
+    top: 0;
+    height: var(--header-height); /* Usamos la variable */
+    padding: 0 var(--padding-sides); /* Usamos la variable */
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sutil sombra para profundidad */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    padding-right: 30px;
+    
+  }
+
+  /* Contenedor del ícono de menú */
+  .headermovil .menu-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* No necesitamos position: absolute aquí, flexbox lo maneja */
+    /* Este div .menu-icon ahora solo contiene la hamburguesa */
+  }
+
+  .headermovil .hamburger-icon {
+    width: 28px; /* Tamaño adecuado para un ícono de menú */
+    height: 28px;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  /* Nuevo contenedor para el logo y el tagline */
+  .headermovil .brand-info {
+    display: flex; /* Convertimos a flexbox */
+    flex-direction: column; /* Apila el h1 y h2 verticalmente */
+    align-items: center; /* Centra el texto horizontalmente */
+    flex-grow: 1; /* Permite que ocupe el espacio restante */
+    text-align: center; /* Asegura que el texto esté centrado en su contenedor */
+    margin-left: 10px; /* Un pequeño margen para separar del icono */
+  }
+
+
+  .headermovil .logo {
+    color: #000;
+    font-size: 24px; /* Un poco más grande para el nombre */
+    margin: 2px 0 0 0;
+    font-weight: 650; /* Más audaz */
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Pequeño espaciado para mejor legibilidad */
+  }
+
+  .headermovil .tagline {
+    color: var(--secondary-text-color);
+    font-size: 14px; /* Tamaño para el subtítulo */
+    margin: 2px 0 0 0; /* Espacio entre el logo y el tagline */
+    font-weight: 400;
+    text-transform: uppercase; /* Para un toque profesional */
+    letter-spacing: 1px;
+  }
+
+  /* --- Navegación Móvil (Visible en Móvil) --- */
+  .navmovil {
+    display: block; /* Hacemos visible el contenedor en móvil */
+    color: var(--secondary-text-color);
+    font-size: 14px; /* Tamaño para el subtítulo */
+    margin: 2px 0 0 0; /* Espacio entre el logo y el tagline */
+    font-weight: 400;
+    text-transform: uppercase; /* Para un toque profesional */
+    letter-spacing: 1px;
+  }
+
+  ul{
+    letter-spacing: 1px;
+  }
+  /* --- Footer en Móvil --- */
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px var(--padding-sides);
+    letter-spacing: 1px;
+  }
+
+  .footer-column {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+
+  .footer-column:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .footer-note {
+    margin-top: 20px;
+    padding-top: 15px;
+  }
+
+  .galeria .contenedor-fotos {
+    flex-direction: column; /* Apila las fotos verticalmente en móviles */
+    align-items: center;
+  }
+
+  .galeria .foto-elegante {
+    width: 90%; /* Las fotos ocupan casi todo el ancho */
+    max-width: 350px; /* Limita el tamaño máximo de las fotos */
+  }
+
+  .quien-soy {
+    padding: 40px 15px;
+    margin: 20px auto;
+  }
+
+  .quien-soy-titulo {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .quien-soy-titulo::after {
+    bottom: -8px;
+    width: 50px;
+  }
+
+  .quien-soy-descripcion {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding: 0 5px;
+  }
+
+  .btn-conoce-mas {
+    padding: 12px 25px;
+    font-size: 1em;
+  }
+
+/* Aquí puedes añadir más estilos para tu header, footer, etc. */
+/* Ejemplo de media query para dispositivos móviles */
+
+
+
+/* Media Queries para Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 0px; /* En móvil, el padding del body lo maneja el header */
+    }
+
+    .contact-section {
+        margin: 20px auto;
+        padding: 30px 20px;
+        border-radius: 8px;
+    }
+
+    .contact-title {
+        font-size: 2.2em;
+        margin-bottom: 10px;
+    }
+
+    .contact-title::after {
+        width: 60px;
+        bottom: -8px;
+    }
+
+    .contact-description {
+        font-size: 1em;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+
+    .submit-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .contact-info h3 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .contact-info p {
+        font-size: 1em;
+    }
+
+    .social-links {
+        margin-top: 20px;
+        gap: 15px;
+    }
+
+    .social-links a img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .carousel-container {
+        max-width: 100%;
+        margin: 20px auto;
+        height: 300px; /* Altura fija para el contenedor en móvil */
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .carousel-slide img {
+        border-radius: 8px;
+    }
+
+    .prev-button, .next-button {
+        /* *** INICIO DE LAS MODIFICACIONES CLAVE PARA BOTONES MÓVILES *** */
+        width: 35px; /* Establecer un ancho fijo para el botón */
+        height: 35px; /* Establecer una altura fija, haciéndolos cuadrados */
+        padding: 0; /* Eliminar padding para controlar el tamaño solo con width/height */
+        font-size: 16px; /* Tamaño de la flecha más pequeño */
+        border-radius: 50%; /* Hacerlos completamente redondos */
+        background-color: rgba(0, 0, 0, 0.4); /* Fondo más transparente */
+        color: white;
+        display: flex; /* Usar flexbox para centrar la flecha dentro del círculo */
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        transition: background-color 0.3s ease; /* Solo transición del color de fondo */
+        /* opacity: 0.7; (Ya no es necesario si el background-color ya es transparente) */
+        /* *** FIN DE LAS MODIFICACIONES CLAVE *** */
+    }
+
+    /* Posicionamiento específico para cada botón */
+    .prev-button {
+        left: 8px; /* Pequeña separación del borde izquierdo */
+    }
+
+    .next-button {
+        right: 8px; /* Pequeña separación del borde derecho */
+    }
+
+    /* Ajuste de hover para móvil: los hacemos un poco más visibles al "hover" (tocar) */
+    .prev-button:hover, .next-button:hover {
+        background-color: rgba(0, 0, 0, 0.6); /* Un poco más oscuro al tocar */
+        transform: translateY(-50%) scale(1); /* Desactivar el efecto de escala en hover para móvil */
+    }
+
+    .carousel-dots {
+        bottom: 10px;
+        gap: 8px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+
+
+    .social-icons-footer {
+        justify-content: center; /* Asegura que los iconos estén centrados en móvil */
+        margin-top: 15px;
+        gap: 10px;
+    }
+
+    .social-icons-footer a img {
+        width: 25px; /* Iconos ligeramente más pequeños en móvil */
+        height: 25px;
+    }
+
+
+
+
+
+
+    /* ===== CORRECCIÓN COMPLETA PARA SERVICIOS EN MÓVIL ===== */
+  /* Reset del contenedor principal */
+  .main-content {
+    overflow-x: hidden;
+  }
+  
+  /* Galería sin padding lateral */
+  .galeria .contenedor-fotos {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 350px;
+    align-items: center;
+  }
+
+
+  .servicio-texto-container{
+    text-align: center;
+    padding: 0;
+  }
+  
+  /* Cada servicio ocupa todo el ancho disponible */
+  .servicio-item {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    height: 70vh;
+    overflow: hidden;
+    border-radius: 15px; /* Temporal sin bordes */
+    text-align: center;
+  }
+  
+  /* Imágenes que ocupan todo el ancho sin cortarse */
+  .servicio-item .foto-elegante {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Texto centrado y elegante */
+  .servicio-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+  
+  .servicio-nombre {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 300;
+    /* letter-spacing: 3px; */
+    letter-spacing: 4px;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    /* font-family: 'Playfair Display', serif; */
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    width: 90%;
+  }
+  
+  .servicio-descripcion {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+  }
+
+
+
+
+
+
+
+
+  .servicio-detalles {
+    padding: 20px 15px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 350px;
+    box-sizing: border-box;
+  }
+  
+
+
+  .servicio-detalles.active {
+    margin-left: auto;
+    margin-right: auto;
+    transform: none !important;
+}
+
+
+  .detalles-contenido h4 {
+    font-size: 1.2em;
+  }
+  
+  .descripcion-completa {
+    font-size: 0.9em;
+  }
+  
+  .precio-seccion {
+    padding: 10px 15px;
+    margin: 15px 0;
+  }
+  
+  .precio-seccion strong {
+    font-size: 1.1em;
+  }
+  
+  .proceso-servicio,
+  .recargos-domicilio {
+    margin: 15px 0;
+  }
+  
+  .proceso-servicio h5,
+  .recargos-domicilio h5 {
+    font-size: 1em;
+  }
+  
+  .proceso-servicio li,
+  .recargos-domicilio li {
+    font-size: 0.85em;
+  }
+
+
+
+.servicio-detalles {
+    margin-top: 15px;
+  }
+  
+  .servicio-item.active::after {
+    width: 90%;
+  }
+  
+  /* Scroll suave para móviles */
+  .servicio-detalles.active {
+    scroll-margin-top: 20px;
+  }
+
+
+
+
+  .proceso-servicio h5,
+.recargos-domicilio h5 {
+  font-family: 'League Spartan', serif;
+  color: #333;
+  margin-bottom: 15px;
+  
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+  text-align: left; /* Solo esto cambia - alineación derecha */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+}
+
+
+
+
+/* ======================================================= */
+/* PADDING SOLO PARA ELEMENTOS ESPECÍFICOS */
+/* ======================================================= */
+
+/* Aplicar padding solo al contenedor de servicios, no a los detalles */
+
+
+
+/* GALERÍA EN MÓVIL - SIN MOVIMIENTO */
+.galeria .contenedor-fotos {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 350px; /* LIMITAR ANCHO MÁXIMO */
+    align-items: center; /* CENTRAR TODO */
+}
+}
+
+
+
+}
