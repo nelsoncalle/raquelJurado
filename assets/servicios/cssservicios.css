@@ -8,3 +8,8 @@ main {
 h4{
     text-align: center;
 }
+
+
+ul {
+     list-style-type: disc;
+}
