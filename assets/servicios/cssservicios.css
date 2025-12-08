@@ -13,3 +13,30 @@ h4{
 ul {
      list-style-type: disc;
 }
+
+
+
+
+/* Estilos generales para la clase sociales-item */
+.sociales-item {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+/* Imagen base */
+.foto-sociales {
+  width: 300px;          /* tamaño fijo para web */
+  max-width: 100%;       /* que nunca se desborde */
+  border-radius: 15px;   /* bordes redondeados */
+  object-fit: cover;     /* recorte agradable */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* sombra suave */
+}
+
+/* Adaptación para pantallas móviles */
+@media (max-width: 768px) {
+  .foto-sociales {
+    width: 95%;          /* ocupa casi todo el ancho */
+    border-radius: 20px; /* bordes más suaves/redondeados */
+  }
+}
