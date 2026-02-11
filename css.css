@@ -670,14 +670,7 @@ a {
                           left: 0;
                           width: 100%;
                           height: 3px;
-                          background: linear-gradient(90deg, 
-                          rgba(96, 96, 96, 0.8) 0%, 
-                          rgba(64, 64, 64, 0.9) 50%, 
-                          rgba(32, 32, 32, 1) 100%);
-                          border-radius: 2px;
-                          transform: scaleX(0.8);
-                          transform-origin: center;
-                          transition: transform 0.3s ease;
+                          
                       }
 
                       .servicio:hover .servicio-nombre::after {
