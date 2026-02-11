@@ -51,7 +51,7 @@ ul {
 
 
   .foto-sociales {
-    width: 95%;          /* ocupa casi todo el ancho */
+    width: 90%;          /* ocupa casi todo el ancho */
     border-radius: 20px; /* bordes más suaves/redondeados */
   }
 }
