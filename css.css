@@ -1114,8 +1114,8 @@ a {
   }
 
   .headermovil .hamburger-icon {
-    width: 28px; /* Tamaño adecuado para un ícono de menú */
-    height: 28px;
+    width: 32px; /* Tamaño adecuado para un ícono de menú */
+    height: 32px;
     display: block;
     transition: transform 0.3s ease;
   }
